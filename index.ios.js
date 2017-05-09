@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
 
 const {height, width} = Dimensions.get('window');
@@ -34,6 +35,7 @@ export default class reactNative_map extends Component {
             latitude: -12.117376010209252,
             longitude: -77.02246427536011,
           },
+          photo: require('./images/photos/park1.jpg'),
           title: 'Carritos',
           description: 'Estacionamiento 1'
         },
@@ -42,6 +44,7 @@ export default class reactNative_map extends Component {
             latitude: -12.116117232017405,
             longitude: -77.02396631240845,
           },
+          photo: require('./images/photos/park2.jpg'),
           title: 'Parking',
           description: 'Estacionamiento 2'
         },
@@ -50,6 +53,7 @@ export default class reactNative_map extends Component {
             latitude: -12.117858540275225,
             longitude: -77.02471733093262,
           },
+          photo: require('./images/photos/park3.jpg'),
           title: 'Surquillo parking',
           description: 'Estacionamiento 3'
         }
@@ -81,7 +85,15 @@ export default class reactNative_map extends Component {
               image={require('./images/icon.png')}
               title={marker.title}
               description={marker.description}
-            />
+            >
+              <MapView.Callout>
+                <View style={styles.callout}>
+                  <Image style={styles.calloutPhoto} source={marker.photo} />
+                  <Text style={styles.callouTitle}>{marker.title}</Text>
+                  <Text>{marker.description}</Text>
+                </View>
+              </MapView.Callout>
+            </MapView.Marker>
           ))}
         </MapView>
         <View style={styles.container}>
@@ -104,6 +116,18 @@ const styles = StyleSheet.create({
     width: width,
     height: height - 90,
   },
+  callout: {
+    flex: 1,
+  },
+  calloutPhoto: {
+    flex: 1,
+    width: 160,
+    height: 83,
+    marginBottom: 10,
+  },
+  calloutTitle: {
+    fontSize: 16
+  }
 });
 
 AppRegistry.registerComponent('reactNative_map', () => reactNative_map);
